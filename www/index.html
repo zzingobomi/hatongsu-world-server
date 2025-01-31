@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./geckos.io-client.3.0.1.min.js"></script>
+    <title>Test Client</title>
+  </head>
+  <body>
+    <h2>Status: loading...</h2>
+    <input type="text" id="messageInput" placeholder="Type a message..." />
+    <button onclick="sendMessage()">Send</button>
+    <div id="messages"></div>
+
+    <script>
+      const h2 = document.querySelector("h2");
+      const messagesDiv = document.querySelector("#messages");
+      const messageInput = document.querySelector("#messageInput");
+
+      const channel = geckos({ port: 5000 });
+
+      channel.onConnect((error) => {
+        if (error) {
+          console.error(error.message);
+          h2.innerText = `Status: error (${error.message})`;
+          return;
+        }
+
+        console.log("connected");
+        h2.innerText = "Status: connected";
+      });
+
+      channel.on("chat message", (data) => {
+        const p = document.createElement("p");
+        p.textContent = `Echo: ${data}`;
+        messagesDiv.appendChild(p);
+      });
+
+      window.sendMessage = () => {
+        const message = messageInput.value;
+        if (message.trim()) {
+          channel.emit("chat message", message);
+
+          const p = document.createElement("p");
+          p.textContent = `Sent: ${message}`;
+          messagesDiv.appendChild(p);
+
+          messageInput.value = "";
+        }
+      };
+
+      messageInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          window.sendMessage();
+        }
+      });
+    </script>
+  </body>
+</html>
