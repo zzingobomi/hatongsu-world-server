@@ -6,6 +6,7 @@ import {
   IWSTransform,
   WSMessageType,
 } from "./shared/worldserver.type";
+import { findSafePosition } from "./utils";
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 5000;
 const io = geckos();
@@ -15,16 +16,23 @@ io.onConnection((channel) => {
   console.log(`Client connected! ID: ${channel.id}`);
 
   const playerId = channel.id as string;
+  const safePosition = findSafePosition(players);
 
   const newPlayer: IWSPlayerData = {
     playerId,
     transform: {
-      position: { x: 0, y: 0, z: 0 },
-      rotation: { x: 0, y: 0, z: 0, w: 0 },
+      position: safePosition,
+      rotation: {
+        x: 0,
+        y: Math.sin(Math.PI / 4),
+        z: 0,
+        w: Math.sin(Math.PI / 4),
+      },
     },
   };
   players.set(playerId, newPlayer);
 
+  channel.emit(WSMessageType.SERVER_NEW_PLAYER, newPlayer);
   channel.emit(
     WSMessageType.SERVER_EXISTING_PLAYERS,
     Array.from(players.values())
