@@ -1,16 +1,16 @@
-FROM node:18 as builder
+FROM node:alpine AS builder
 
 WORKDIR /app
-RUN apk add --no-cache pnpm
+RUN npm install -g pnpm
 COPY package.json pnpm-lock.yaml* ./
 RUN pnpm install
 COPY . .
 RUN pnpm build
 
-FROM node:18 AS production
+FROM node:alpine AS production
 
 WORKDIR /app
-RUN apk add --no-cache pnpm
+RUN npm install -g pnpm
 COPY package.json pnpm-lock.yaml* ./
 RUN pnpm install --prod
 
