@@ -1,4 +1,4 @@
-FROM node:18-alpine as builder
+FROM node:18 as builder
 
 WORKDIR /app
 RUN apk add --no-cache pnpm
@@ -7,7 +7,7 @@ RUN pnpm install
 COPY . .
 RUN pnpm build
 
-FROM node:18-alpine
+FROM node:18 AS production
 
 WORKDIR /app
 RUN apk add --no-cache pnpm
