@@ -9,6 +9,9 @@ RUN pnpm build
 
 FROM node:alpine AS production
 
+EXPOSE 4100/tcp
+EXPOSE 50000-51000/udp
+
 WORKDIR /app
 RUN npm install -g pnpm
 COPY package.json pnpm-lock.yaml* ./

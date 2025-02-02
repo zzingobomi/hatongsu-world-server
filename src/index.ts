@@ -10,7 +10,7 @@ import { findSafePosition } from "./utils";
 
 const TCP_PORT = process.env.TCP_PORT
   ? parseInt(process.env.TCP_PORT, 10)
-  : 5000;
+  : 4100;
 const UDP_MIN_PORT = process.env.UDP_MIN_PORT
   ? parseInt(process.env.UDP_MIN_PORT, 10)
   : 50000;
