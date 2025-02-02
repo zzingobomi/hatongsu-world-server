@@ -16,7 +16,7 @@ const UDP_MIN_PORT = process.env.UDP_MIN_PORT
   : 50000;
 const UDP_MAX_PORT = process.env.UDP_MAX_PORT
   ? parseInt(process.env.UDP_MAX_PORT, 10)
-  : 51000;
+  : 50010;
 
 const io = geckos({
   portRange: {

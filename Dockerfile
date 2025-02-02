@@ -10,7 +10,7 @@ RUN pnpm build
 FROM node:alpine AS production
 
 EXPOSE 4100/tcp
-EXPOSE 50000-51000/udp
+EXPOSE 50000-50010/udp
 
 WORKDIR /app
 RUN npm install -g pnpm
