@@ -1,4 +1,4 @@
-FROM node:20-alpine AS builder
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 RUN npm install -g pnpm
@@ -7,7 +7,7 @@ RUN pnpm install
 COPY . .
 RUN pnpm build
 
-FROM node:20-alpine AS production
+FROM node:18-alpine AS production
 
 EXPOSE 4100/tcp
 EXPOSE 50000-50010/udp
@@ -20,4 +20,4 @@ RUN pnpm install --prod
 COPY --from=builder /app/dist/ ./dist/
 ENV NODE_ENV=production
 
-CMD ["node", "--experimental-specifier-resolution=node", "./dist/index.js"]
+CMD ["node", "--experimental-specifier-resolution=node", "--loader", "ts-node/esm", "./dist/index.js"]

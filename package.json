@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "@geckos.io/server": "^3.0.1",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
