@@ -20,4 +20,4 @@ RUN pnpm install --prod
 COPY --from=builder /app/dist/ ./dist/
 ENV NODE_ENV=production
 
-CMD ["node", "./dist/index.js"] 
+CMD ["node", "--experimental-specifier-resolution=node", "./dist/index.js"]
