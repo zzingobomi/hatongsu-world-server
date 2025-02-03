@@ -10,6 +10,7 @@ import { findSafePosition } from "./utils";
 import express from "express";
 import http from "http";
 import https from "https";
+import cors from "cors";
 import fs from "fs";
 
 const isProduction = process.env.NODE_ENV === "production";
@@ -25,6 +26,13 @@ const UDP_MAX_PORT = process.env.UDP_MAX_PORT
 
 const app = express();
 let server: http.Server | https.Server;
+
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 if (isProduction) {
   const sslOptions = {
@@ -112,4 +120,6 @@ io.onConnection((channel) => {
   });
 });
 
-io.listen(TCP_PORT);
+server.listen(TCP_PORT, () => {
+  console.log(`server ${TCP_PORT} started`);
+});
