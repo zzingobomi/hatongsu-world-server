@@ -57,6 +57,7 @@ const io = geckos({
     max: UDP_MAX_PORT,
   },
   cors: { allowAuthorization: true, origin: "*" },
+  iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
 });
 io.addServer(server);
 
