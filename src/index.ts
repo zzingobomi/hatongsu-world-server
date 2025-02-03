@@ -23,6 +23,7 @@ const io = geckos({
     min: UDP_MIN_PORT,
     max: UDP_MAX_PORT,
   },
+  cors: { allowAuthorization: true, origin: "*" },
 });
 
 const players: Map<string, IWSPlayerData> = new Map();
