@@ -16,9 +16,11 @@
   "dependencies": {
     "@geckos.io/server": "^3.0.1",
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/node": "^18.0.0",
     "tsx": "^4.7.0",
     "typescript": "^4.9.0"

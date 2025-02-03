@@ -7,7 +7,12 @@ import {
   WSMessageType,
 } from "./shared/worldserver.type";
 import { findSafePosition } from "./utils";
+import express from "express";
+import http from "http";
+import https from "https";
+import fs from "fs";
 
+const isProduction = process.env.NODE_ENV === "production";
 const TCP_PORT = process.env.TCP_PORT
   ? parseInt(process.env.TCP_PORT, 10)
   : 4100;
@@ -18,13 +23,34 @@ const UDP_MAX_PORT = process.env.UDP_MAX_PORT
   ? parseInt(process.env.UDP_MAX_PORT, 10)
   : 50010;
 
+const app = express();
+let server: http.Server | https.Server;
+
+if (isProduction) {
+  const sslOptions = {
+    key: fs.readFileSync(
+      process.env.SSL_KEY_PATH || "/etc/ssl/certs/privkey.pem"
+    ),
+    cert: fs.readFileSync(
+      process.env.SSL_CERT_PATH || "/etc/ssl/certs/cert.pem"
+    ),
+    ca: fs.readFileSync(
+      process.env.SSL_CHAIN_PATH || "/etc/ssl/certs/chain.pem"
+    ),
+  };
+  server = https.createServer(sslOptions, app);
+} else {
+  server = http.createServer(app);
+}
+
 const io = geckos({
   portRange: {
     min: UDP_MIN_PORT,
     max: UDP_MAX_PORT,
   },
-  cors: { allowAuthorization: true, origin: "localhost" },
+  cors: { allowAuthorization: true, origin: "*" },
 });
+io.addServer(server);
 
 const players: Map<string, IWSPlayerData> = new Map();
 
