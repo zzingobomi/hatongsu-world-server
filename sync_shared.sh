@@ -26,8 +26,8 @@ sync_assets() {
   
   # rsync 명령어 옵션 설명
   # -a: 아카이브 모드(권한, 수정시간 보존)
-  # --delete: 소스에 없는 파일 삭제  
-  rsync -a --delete --info=progress2 \
+  # --delete: 소스에 없는 파일 삭제 (event server file 을 지우면 안되기 때문에 해당 옵션 삭제)
+  rsync -a --info=progress2 \
     --exclude='*.tmp' \
     --exclude='.gitkeep' \
     "$WORLDSERVER_SHARED/" "$FRONTEND_SHARED/"
