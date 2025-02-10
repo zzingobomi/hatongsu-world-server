@@ -1,7 +1,7 @@
 ### Hatongsu world server
 
 - signaling tcp: 4100
-- webrtc udp: 50000-50010 (더 늘릴예정)
+- webrtc udp: 50000-51000
 - stun udp: 19302
 - network mode: host
 - 현재 NAS 라우터 구성에 사용자 지정포트로 수동으로 열어준 상태

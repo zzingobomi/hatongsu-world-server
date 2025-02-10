@@ -22,7 +22,7 @@ const UDP_MIN_PORT = process.env.UDP_MIN_PORT
   : 50000;
 const UDP_MAX_PORT = process.env.UDP_MAX_PORT
   ? parseInt(process.env.UDP_MAX_PORT, 10)
-  : 50010;
+  : 51000;
 
 const app = express();
 let server: http.Server | https.Server;
@@ -57,7 +57,13 @@ const io = geckos({
     max: UDP_MAX_PORT,
   },
   cors: { allowAuthorization: true, origin: "*" },
-  iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
+  iceServers: [
+    { urls: "stun:stun.l.google.com:19302" },
+    { urls: "stun:stun1.l.google.com:19302" },
+    { urls: "stun:stun2.l.google.com:19302" },
+    { urls: "stun:stun3.l.google.com:19302" },
+    { urls: "stun:stun4.l.google.com:19302" },
+  ],
 });
 io.addServer(server);
 
