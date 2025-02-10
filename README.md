@@ -15,6 +15,9 @@
   - docker/hatongsu/certs:/etc/ssl/certs
   - 읽기전용
 
+- pnpm 으로 빌드했을때는 왜 data_channel cannot find module 에러가 나는가? geckos.io 버그인가?
+- @geckos.io/server 타입스크립트에서 못찾는 문제는 어떻게 해결할까?
+
 - signaling tcp: 4100
 - webrtc udp: 50000-51000
 - stun udp: 19302

@@ -5,8 +5,8 @@ import {
   IWSPlayerData,
   IWSTransform,
   WSMessageType,
-} from "./shared/worldserver.type";
-import { findSafePosition } from "./utils";
+} from "./shared/worldserver.type.js";
+import { findSafePosition } from "./utils.js";
 import express from "express";
 import http from "http";
 import https from "https";
