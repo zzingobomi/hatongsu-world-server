@@ -22,6 +22,7 @@ echo "생성된 타임스탬프: $TIMESTAMP"
 docker buildx build \
   --platform linux/amd64,linux/arm64 \
   -t zzingo5/hatongsu-world-server:$TIMESTAMP \
+  --target production \
   -f ./Dockerfile \
   --push .
 

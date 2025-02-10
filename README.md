@@ -1,5 +1,20 @@
 ### Hatongsu world server
 
+- 테스트용 도커 빌드
+
+```bash
+./reverse-proxy/build_and_push.sh <DOCKER_USERNAME> <DOCKER_PASSWORD>
+```
+
+- 네트워크
+
+  - Docker host와 동일한 네트워크 사용
+
+- 도커 볼륨
+
+  - docker/hatongsu/certs:/etc/ssl/certs
+  - 읽기전용
+
 - signaling tcp: 4100
 - webrtc udp: 50000-51000
 - stun udp: 19302
