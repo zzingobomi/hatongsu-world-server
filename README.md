@@ -15,8 +15,20 @@
   - docker/hatongsu/certs:/etc/ssl/certs
   - 읽기전용
 
-- pnpm 으로 빌드했을때는 왜 data_channel cannot find module 에러가 나는가? geckos.io 버그인가?
-- @geckos.io/server 타입스크립트에서 못찾는 문제는 어떻게 해결할까?
+### pnpm module not found
+
+- pnpm 으로 빌드했을때는 왜 data_channel cannot find module 에러가 나는가?
+- https://github.com/pnpm/pnpm/issues/9032
+- 해당 내용 참고해서 적용시켜 보자
+- package.json
+
+```
+"pnpm": {
+  "onlyBuiltDependencies": [
+    "bcrypt"
+  ]
+},
+```
 
 - signaling tcp: 4100
 - webrtc udp: 50000-51000
