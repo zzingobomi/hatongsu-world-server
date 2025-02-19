@@ -1,43 +1,37 @@
-### Hatongsu world server
+# Hatongsu World Server
 
-- 테스트용 도커 빌드
+## Demo
 
-```bash
-./reverse-proxy/build_and_push.sh <DOCKER_USERNAME> <DOCKER_PASSWORD>
-```
+[https://practice-zzingo.net](https://practice-zzingo.net)
 
-- 네트워크
+## Screenshot
 
-  - Docker host와 동일한 네트워크 사용
+<div align="center">
+  <h3>메인 페이지</h3>
+  <p align="center">
+    <img src="./docs/hatongsu_main_1.png" width="45%" style="vertical-align: middle">
+    <img src="./docs/hatongsu_main_2.png" width="45%" style="vertical-align: middle">
+  </p>
+  
+  <h3>3D 갤러리</h3>
+  <p align="center">
+    <img src="./docs/hatongsu_gallery_1.jpg" width="45%" style="vertical-align: middle">
+    <img src="./docs/hatongsu_gallery_2.png" width="45%" style="vertical-align: middle">
+  </p>
 
-- 도커 볼륨
+  <h3>대시보드</h3>
+  <p align="center">
+    <img src="./docs/hatongsu_dashboard_1.png" width="45%" style="vertical-align: middle">
+    <img src="./docs/hatongsu_dashboard_2.png" width="45%" style="vertical-align: middle">
+  </p>
+</div>
 
-  - docker/hatongsu/certs:/etc/ssl/certs
-  - 읽기전용
+## Architecture
 
-### pnpm module not found
+![Architecture](./docs/architecture.svg)
 
-- pnpm 으로 빌드했을때는 왜 data_channel cannot find module 에러가 나는가?
-- https://github.com/pnpm/pnpm/issues/9032
-- 해당 내용 참고해서 적용시켜 보자
-- package.json
+## My Project
 
-```
-"pnpm": {
-  "onlyBuiltDependencies": [
-    "bcrypt"
-  ]
-},
-```
-
-- signaling tcp: 4100
-- webrtc udp: 50000-51000
-- stun udp: 19302
-- network mode: host
-- 현재 NAS 라우터 구성에 사용자 지정포트로 수동으로 열어준 상태
-  - 새로운 컨테이너 띄울때마다 라우터 구성을 꼭 다시 해줘야 하나? 새로운 컨테이너 뜨면 자동으로 연결이 안되는듯 하다
-- bridge 모드와 host 모드때문에 connection 이 안되었다? 정말인가?
-- 현재는 turn 서버도 없는 상태..
-- 추후에 내 k8s 클러스터 내에서 Stunner 를 실행시킨다면 어떻게 될까? -https://github.com/l7mp/stunner
-
-- wsl2 에서 www폴더내에 client 실행시킬때는 localhost 를 입력해주어야 한다 (127.0.0.1 은 에러남)
+|                                                 [Frontend](https://github.com/zzingobomi/hatongsu-frontend)                                                  |                                                 [Backend](https://github.com/zzingobomi/hatongsu-backend)                                                 |                                                   [World Server](https://github.com/zzingobomi/hatongsu-world-server)                                                    |                                                   [Event Server](https://github.com/zzingobomi/hatongsu-event-server)                                                    |                                              [Infra](https://github.com/zzingobomi/on-premise)                                              |
+| :----------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| [![Frontend](https://img.shields.io/github/languages/top/zzingobomi/hatongsu-frontend?style=for-the-badge)](https://github.com/zzingobomi/hatongsu-frontend) | [![Backend](https://img.shields.io/github/languages/top/zzingobomi/hatongsu-backend?style=for-the-badge)](https://github.com/zzingobomi/hatongsu-backend) | [![World Server](https://img.shields.io/github/languages/top/zzingobomi/hatongsu-world-server?style=for-the-badge)](https://github.com/zzingobomi/hatongsu-world-server) | [![Event Server](https://img.shields.io/github/languages/top/zzingobomi/hatongsu-event-server?style=for-the-badge)](https://github.com/zzingobomi/hatongsu-event-server) | [![Infra](https://img.shields.io/github/languages/top/zzingobomi/on-premise?style=for-the-badge)](https://github.com/zzingobomi/on-premise) |
